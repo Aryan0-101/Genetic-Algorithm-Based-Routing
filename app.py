@@ -476,9 +476,13 @@ with tab_lab:
     ctrl1, ctrl2, ctrl3, ctrl4 = st.columns([1.5, 1.5, 2, 2])
     cities = sorted(graph.nodes)
     with ctrl1:
-        src = st.selectbox("🟢 Source", cities, index=cities.index("DEL"), key="lab_src")
+        src = st.selectbox("🟢 Source", cities, index=cities.index("DEL"), key="lab_src",
+                           format_func=lambda x: f"{NODE_LABELS.get(x, x)} ({x})",
+                           help="Select the starting city for the network route")
     with ctrl2:
-        dst = st.selectbox("🔴 Destination", cities, index=cities.index("CHN"), key="lab_dst")
+        dst = st.selectbox("🔴 Destination", cities, index=cities.index("CHN"), key="lab_dst",
+                           format_func=lambda x: f"{NODE_LABELS.get(x, x)} ({x})",
+                           help="Select the destination city for the network route")
     with ctrl3:
         max_lat = st.slider("⏱️ Max Latency (ms)", 10.0, 200.0, 50.0, 5.0, key="lab_lat",
                             help="Reject routes exceeding this latency")
